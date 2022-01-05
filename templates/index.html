@@ -7,5 +7,28 @@
     <h1 class="display-4">Check the Fit</h1>
     <div class="container mt-5 mb-5 px-10 ">
     </div>
+
+    <form method="POST" action="/create" enctype="multipart/form-data">
+
+        <div class="dropdown">
+
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="clothing_type">
+              Dropdown button
+            </button>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" name="shirt">Shirt</a>
+              <a class="dropdown-item" name="pants">Pants</a>
+              <a class="dropdown-item" name="jacket">Jacket</a>
+              <a class="dropdown-item" name="shoes">Shoes</a>
+              <a class="dropdown-item" name="hat">Hat</a>
+
+            </div>
+        </div>
+
+        <input class="te" type="file" name="clothing_image">
+
+        <input type="submit">
+    </form>
 </div>
 {% endblock %} 
