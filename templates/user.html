@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %} User {% endblock %}
+
+{% block content %}
+    {% include 'partials/flash.html' %}
+
+
+    
+    <div class="jumbotron container mt-5 mb-5 px-10">
+        <h1 class="display-4">Dashboard</h1>
+        <p class="lead">Here you can create your notes!</p>
+        <div class="container mt-5 mb-5 px-10 ">
+            <div class="row g-2">     
+                <div class="">
+                    <div class="col-md-6 offset-md-3 text-center">
+                        <a href="/notes/new" class="btn btn-primary"> Add note </a>
+                    </div>
+                    <div class="col-md-6 offset-md-3 text-center">
+                        <a href="{{ url_for('logout') }}" class="btn btn-primary"> Logout </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row g-2">
+            <!-- {% for note in notes %}
+               <div class='col-md-4'>
+                    <div class="card" >
+                        <div class="card-body">
+                            <h5 class="card-title">{{ note.name }}</h5>
+                            <p class="card-text">{{ note.content }}</p>
+
+                           <div class='d-flex flex-row'>
+                            <a class='btn btn-success' href="/notes/{{ note._id }}/edit" role="button"> Edit </a>
+
+                            <p><form method='POST' action='/notes/{{ note._id }}/delete'>
+                                <button class='ml-3 btn btn-secondary' type='submit'>Delete</button>
+                            </form></p>
+                           </div>
+                            
+                        </div>
+                    </div>    
+               </div>
+            {% endfor %} -->
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}
