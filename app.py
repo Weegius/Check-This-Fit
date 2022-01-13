@@ -31,7 +31,6 @@ def home():
 
 
 
-
 ''' CREATE NEW Clothing Item ------------------------------------------------- '''
 @app.route("/clothes/new", methods=['GET'])
 def clothes_new():
@@ -111,8 +110,6 @@ def current_user():
     
 
 
-
-
 @app.route("/user")
 def user():
     if logged_in:
@@ -123,10 +120,8 @@ def user():
     else:
         flash("You are not logged in!")
         return redirect(url_for("login"))
-        
 
-
-
+    
 
 
 '''LOGIN AND LOGOUT ROUTES -----------------------------------------'''
@@ -196,6 +191,116 @@ def signup_form():
     # session["password"] = user['password']
 
     return redirect(url_for("user"))
+
+
+
+"""ROUTES FOR CLOTHING FILTERS -----------------------------"""
+
+
+
+""" HAT ------------------------------------------------------------------------------ """
+@app.route("/user/hats")
+def hat():
+    if logged_in:
+
+        user = current_user()
+
+        _id = session['_id']
+
+        hat = clothes.find({type: 'Hat'})
+
+        return render_template("clothingfilter/hats.html", _id=_id, user=user, clothes=clothes.find({'user_id': _id}).sort([['_id', -1]]), hat=hat)
+    else:
+        flash("You are not logged in!")
+        return redirect(url_for("login"))
+
+""" SHIRT ----------------------------------------------------------------------------- """
+
+@app.route("/user/shirts")
+def shirt():
+    if logged_in:
+
+        user = current_user()
+
+        _id = session['_id']
+
+        shirt = clothes.find({type: 'Shirt'})
+
+        return render_template("clothingfilter/shirts.html", _id=_id, user=user, clothes=clothes.find({'user_id': _id}).sort([['_id', -1]]), shirt=shirt)
+    else:
+        flash("You are not logged in!")
+        return redirect(url_for("login"))
+
+""" JACKET ----------------------------------------------------------------------------- """
+
+@app.route("/user/jackets")
+def jacket():
+    if logged_in:
+
+        user = current_user()
+
+        _id = session['_id']
+
+        jacket = clothes.find({type: 'Jacket'})
+
+        return render_template("clothingfilter/jackets.html", _id=_id, user=user, clothes=clothes.find({'user_id': _id}).sort([['_id', -1]]), jacket=jacket)
+    else:
+        flash("You are not logged in!")
+        return redirect(url_for("login"))
+
+""" PANTS ----------------------------------------------------------------------------- """
+
+@app.route("/user/pants")
+def pants():
+    if logged_in:
+
+        user = current_user()
+
+        _id = session['_id']
+
+        pants = clothes.find({type: 'Pants'})
+
+        return render_template("clothingfilter/pants.html", _id=_id, user=user, clothes=clothes.find({'user_id': _id}).sort([['_id', -1]]), pants=pants)
+    else:
+        flash("You are not logged in!")
+        return redirect(url_for("login"))
+
+""" SOCKS ----------------------------------------------------------------------------- """
+
+@app.route("/user/socks")
+def socks():
+    if logged_in:
+
+        user = current_user()
+
+        _id = session['_id']
+
+        sock = clothes.find({type: 'Socks'})
+
+        return render_template("clothingfilter/socks.html", _id=_id, user=user, clothes=clothes.find({'user_id': _id}).sort([['_id', -1]]), sock=sock)
+    else:
+        flash("You are not logged in!")
+        return redirect(url_for("login"))
+
+""" SHOES ----------------------------------------------------------------------------- """
+
+@app.route("/user/shoes")
+def shoe():
+    if logged_in:
+
+        user = current_user()
+
+        _id = session['_id']
+
+        shoe = clothes.find({type: 'Shoes'})
+
+        return render_template("clothingfilter/shoes.html", _id=_id, user=user, clothes=clothes.find({'user_id': _id}), shoe=shoe)
+    else:
+        flash("You are not logged in!")
+        return redirect(url_for("login"))
+
+
+    
 
 
 if __name__ == "__main__":

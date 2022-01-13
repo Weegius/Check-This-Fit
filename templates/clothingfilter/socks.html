@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %} User {% endblock %}
+
+{% block content %}
+    {% include 'partials/flash.html' %}
+    
+
+    
+    <div class=" container mt-5 mb-5 px-10">
+        <div class="container mt-5 mb-5 px-10 ">
+            <div class="row g-2">     
+                <div class="">
+                    {% include 'partials/navbarclothes.html' %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row g-2">
+            {% for socks in clothes %}
+                {% for clothe in clothes %}
+                    <div class='col-md-4'>
+                        <div class="card" >
+                            <div class="card-body">
+                                <h5 class="card-title">{{ clothe.name }}</h5>
+                                <p class="card-text">{{ clothe.content }}</p>
+                            </div>
+                            <div class='d-flex flex-row'>
+                                <a class='btn btn-success' href="/clothes/{{ clothe._id }}/edit" role="button"> Edit </a>
+
+                                <p><form method='POST' action='/clothes/{{ clothe._id }}/delete'>
+                                    <button class='ml-3 btn btn-secondary' type='submit'>Delete</button>
+                                </form></p>
+
+                            </div>
+                        </div>    
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}
