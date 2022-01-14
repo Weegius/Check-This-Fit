@@ -1,0 +1,66 @@
+{% extends "base.html" %} {% block title %} Home Page {% endblock %} {% block
+  content %}
+  
+  <div class="jumbotron container mt-5 mb-5 px-10">
+    <h1 class="display-4">Add Clothing Item</h1>
+    <div class="container mt-5 mb-5 px-10"></div>
+  
+    <form id="form" method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label>Upload clothing image: </label>
+        <input type="hidden" role="uploadcare-uploader" name="my_file_input" />
+      </div>
+  
+      <input id="title" type="text" name="title" placeholder="Name of clothing" />
+  
+      <label for="category">Select Item Category</label>
+      <select class="form-control" id="category" name="type" type="select">
+        <option>Hat</option>
+        <option>Shirt</option>
+        <option>Jacket</option>
+        <option>Pants</option>
+        <option>Socks</option>
+        <option>Shoes</option>
+        <option>Accesories</option>
+      </select>
+  
+      <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+    <p id='error'></p>
+  </div>
+  <script>
+    let cdnURL = '';
+    const widget = uploadcare.SingleWidget("[role=uploadcare-uploader]");
+  
+    widget.onUploadComplete((fileInfo) => {
+      // get a CDN URL from the file info
+      cdnURL = fileInfo.cdnUrl
+    });
+  
+    const submitForm = (e) => {
+      e.preventDefault();
+      let category = document.getElementById("category").value;
+      let title = document.getElementById("title").value;
+      const error = document.getElementById('error');
+  
+      if (title.length > 0) {
+        console.log(cdnURL)
+        axios.post('/clothes', {category, title, cdnURL}).then(res => {
+          if (res.data.success) {
+            location.pathname = '/user'
+          } else {
+            error.innerHTML = res.data.error
+          }
+        })
+      } else {
+        error.innerHTML = "Title can't be empty"
+      }
+    };
+  
+    let form = document
+      .getElementById("form")
+      .addEventListener("submit", submitForm, true);
+  </script>
+  
+  {% endblock %}
+  

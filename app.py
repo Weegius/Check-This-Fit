@@ -9,6 +9,8 @@ import os
 import requests
 
 
+
+
 app = Flask(__name__)
 
 bcrypt = Bcrypt(app)
@@ -43,15 +45,22 @@ def clothes_new():
 ''' SUBMIT A NEW Clothing Item ------------------------------------------------- '''
 @app.route("/clothes", methods=['POST'])
 def clothes_submit():
+    content = request.json
+    print(content)
     _id = session['_id']
-    clothe = {
-        'name': request.form.get('title'),
-        'type': request.form.get('type'),
-        'created': datetime.datetime.utcnow(),
-        'user_id': _id
-    }
-    clothes.insert_one(clothe)
-    return redirect(url_for('user'))
+    
+    if len(content['title']) > 0:
+        clothe = {
+            'name': content['title'],
+            'type': content['category'],
+            'image_url': content['cdnURL'], 
+            'created': datetime.datetime.utcnow(),
+            'user_id': _id,
+        }
+        clothes.insert_one(clothe)
+        return {"success": True}
+    else:
+        return {'success': False, 'error': "Title can't be blank"}
 
 
 
@@ -112,11 +121,16 @@ def current_user():
 
 @app.route("/user")
 def user():
+    filter = request.args.get('filter')
     if logged_in:
         user = current_user()
         _id = session['_id']
+        if filter:
+            find_clothes = clothes.find({'user_id': _id, 'type': filter}).sort([['_id', -1]])
+        else:
+            find_clothes = clothes.find({'user_id': _id}).sort([['_id', -1]])
 
-        return render_template("user.html", _id=_id, user=user, clothes=clothes.find({'user_id': _id}).sort([['_id', -1]]))
+        return render_template("user.html", _id=_id, user=user, clothes=find_clothes)
     else:
         flash("You are not logged in!")
         return redirect(url_for("login"))
@@ -197,11 +211,17 @@ def signup_form():
 """ROUTES FOR CLOTHING FILTERS -----------------------------"""
 
 
+""" FILTERS """
+# @app.route('/user')
+# def fitler(filter):
+#     user = current_user()
+#     _id = session['_id']
+#     filtered_items = clothes.find({type: filter})
+#     return render_template(f"clothingfilter/f{filter}.html")
 
 """ HAT ------------------------------------------------------------------------------ """
 @app.route("/user/hats")
 def hat():
-    if logged_in:
 
         user = current_user()
 
@@ -210,9 +230,6 @@ def hat():
         hat = clothes.find({type: 'Hat'})
 
         return render_template("clothingfilter/hats.html", _id=_id, user=user, clothes=clothes.find({'user_id': _id}).sort([['_id', -1]]), hat=hat)
-    else:
-        flash("You are not logged in!")
-        return redirect(url_for("login"))
 
 """ SHIRT ----------------------------------------------------------------------------- """
 
@@ -292,7 +309,7 @@ def shoe():
 
         _id = session['_id']
 
-        shoe = clothes.find({type: 'Shoes'})
+        shoe = clothes.find({'type' : 'Shoes'})
 
         return render_template("clothingfilter/shoes.html", _id=_id, user=user, clothes=clothes.find({'user_id': _id}), shoe=shoe)
     else:

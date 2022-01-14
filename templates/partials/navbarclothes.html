@@ -6,28 +6,34 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link"  href="{{ url_for('hat') }}">Hat</a>
+            <a class="active nav-link"  href="/user">All</a>
+        </li>
+        <li class="active nav-item">
+            <a class="nav-link"  href="/user?filter=hat">Hat</a>
+        </li>
+        <li class="active nav-item">
+            <a class="nav-link" href="/user?filter=jacket">Jacket</a>
+        </li>
+        <li class="active nav-item">
+            <a class="nav-link" href="/user?filter=shirt">Shirt</a>
+        </li>
+        <li class="active nav-item">
+            <a class="nav-link" href="/user?filter=pants">Pants</a>
+        </li>
+        <li class="active nav-item">
+            <a class="nav-link" href="/user?filter=shoes">Shoes</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('jacket') }}">Jacket</a>
+            <a class="active nav-link" href="/user?filter=shocks">Socks</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('shirt') }}">Shirt</a>
+            <a class="active nav-link" href="/user?filter=accessories">Accessories</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('pants') }}">Pants</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('shoe') }}">Shoes</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('socks') }}">Socks</a>
-        </li>
-        <div class="nav-item col-md-4 offset-md-7">
-            <a href="clothes/new" class="btn btn-secondary"> Add Clothing Item </a>
+        <div class="nav-item col-md-3 offset-md-6">
+            <a href="{{ url_for('clothes_new') }}" class="active nav-link"> Add Clothing Item </a>
         </div>
         <div class=" nav-item">
-            <a href="{{ url_for('logout') }}" class="btn btn-secondary"> Logout </a>
+            <a href="{{ url_for('logout') }}" class="active nav-link"> Logout </a>
         </div>
         </ul>
       </div>
