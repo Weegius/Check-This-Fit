@@ -124,7 +124,7 @@ def user():
     filter = request.args.get('filter')
     if logged_in:
         user = current_user()
-        _id = session['_id']
+        _id = session.get('_id')
         if filter:
             find_clothes = clothes.find({'user_id': _id, 'type': filter}).sort([['_id', -1]])
         else:
