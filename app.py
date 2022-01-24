@@ -87,7 +87,7 @@ def clothes_update(clothes_id):
     clothes.update_one(
         {'_id': ObjectId(clothes_id)},
         {'$set': updated_clothe})
-    return redirect(url_for('user', clothess_id=clothes_id, title='Edit Clothing Item'))
+    return redirect(url_for('user', clothes_id=clothes_id, title='Edit Clothing Item'))
 
 
 
