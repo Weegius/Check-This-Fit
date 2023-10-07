@@ -17,7 +17,7 @@ COPY . /app/
 EXPOSE 5000
 
 # Environment variables 
-ENV DB_URL=mongodb+srv://heroku:1234@cluster0.gerdk.mongodb.net/Cluster0?retryWrites=true&w=majority
+ENV DB_URL=mongodb://srv-captain--final-db/mydatabase?authSource=admin
 ENV SKEY=o1HM3lo7Snqp4gHM@^93e7g%fe&pgEZ#ep
 ENV PUB_KEY=12ced8960637e7633241
 
