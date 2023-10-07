@@ -16,11 +16,5 @@ COPY . /app/
 # Expose port 5000 for the Flask application
 EXPOSE 5000
 
-# Environment variables 
-ENV DB_URL=mongodb://srv-captain--final-db/mydatabase?authSource=admin
-ENV SKEY=o1HM3lo7Snqp4gHM@^93e7g%fe&pgEZ#ep
-ENV PUB_KEY=12ced8960637e7633241
-
-
 # Command to run the application
 CMD ["python", "app.py"]

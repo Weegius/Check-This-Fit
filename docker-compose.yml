@@ -1,18 +1,23 @@
-version: '3'
+
+version: "3"
+
 services:
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "5000:5000"
-    environment:
-      DB_URL: $DB_URL
-      SKEY: $SKEY
-      PUB_KEY: $PUB_KEY
-    depends_on:
-      - mongodb
   mongodb:
     image: mongo:latest
     ports:
       - "27017:27017"
+    volumes:
+      - ./mongodb-data:/data/db
+
+  web:
+    build:
+      context: ./
+    image: weegius/final
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_URL=mongodb://srv-captain--final-db/mydatabase?authSource=admin
+      - SKEY=o1HM3lo7Snqp4gHM@^93e7g%fe&pgEZ#ep
+      - PUB_KEY=12ced8960637e7633241
+    depends_on:
+      - mongodb
