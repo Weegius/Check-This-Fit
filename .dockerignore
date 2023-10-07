@@ -1,0 +1,17 @@
+# Exclude development-specific files and directories
+.git
+*.pyc
+__pycache__
+
+# Exclude log files
+logs/
+
+# Exclude temporary files and build artifacts
+*.log
+*.tmp
+*.swp
+*.db
+
+# Exclude files and directories specific to your development environment
+.env
+venv/
