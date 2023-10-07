@@ -1,0 +1,44 @@
+name: CI/CD for CapRover
+
+on:
+  push:
+    branches:
+      - main # Change this to the branch you want to trigger the workflow on
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up Docker
+      - name: Set up Docker
+        uses: docker/setup-docker@v2
+        with:
+          docker-version: '20.10.7'
+
+      # Build and push Docker image
+      - name: Build and push Docker image
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          docker build -t your-docker-image-name .
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          docker tag your-docker-image-name:latest your-docker-registry/your-docker-image-name:latest
+          docker push your-docker-registry/your-docker-image-name:latest
+
+      # Set up CapRover CLI
+      - name: Set up CapRover CLI
+        uses: caprover/github-action@v1
+        with:
+          caprover-token: ${{ secrets.CAPROVER_TOKEN }}
+          caprover-endpoint: https://your-caprover-server.com
+
+      # Deploy to CapRover
+      - name: Deploy to CapRover
+        run: |
+          caprover apps -ls
+          caprover deploy -a your-app-name -i your-docker-image-name:latest
